@@ -1,13 +1,11 @@
 Ext.define('GeoExt.data.AbstractLayer',{
     extend: 'Ext.data.Model',
     fields: [   
-                //{name: 'projection',  type: 'string', mapping: 'projection.projCode'},
                 {name: 'opacity',     type: 'float'},
-                {name: 'zIndex',      type: 'int'},
                 {name: 'isBaseLayer', type: 'bool'},
                 {name: 'visibility',  type: 'bool'},
                 {name: 'attribution', type: 'string'},
-                "projection", "units", "minExtent", "maxExtent", "extent"
+                'params'
             ],
     /**
      * Returns the {OpenLayers.Layer} layer object used in this model instance
@@ -15,6 +13,14 @@ Ext.define('GeoExt.data.AbstractLayer',{
     getLayer: function() {
         return this.raw;
     },
+    
+     /**
+     * @event layerchanged
+     * Fired when this layer's properties change outside of the layer model
+     * @param {Ext.data.Model} this
+     * @param {String} property key
+     * @param {String/Number/Object} value of property that changed
+     */
     
     /**
      * @private

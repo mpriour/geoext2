@@ -178,28 +178,21 @@ Ext.define('GeoExt.data.LayerStore', {
          */
         onChangeLayer: function(evt) {
             var layer = evt.layer;
-            var recordIndex = this.findBy(function(rec, id) {
-                return rec.getLayer() === layer;
-            });
-            if(recordIndex > -1) {
-                var record = this.getAt(recordIndex);
-                if(evt.property === "order") {
-                    if(!this._adding && !this._removing) {
-                        var layerIndex = this.map.getLayerIndex(layer);
-                        if(layerIndex !== recordIndex) {
-                            this._removing = true;
-                            this.remove(record);
-                            delete this._removing;
-                            this._adding = true;
-                            this.insert(layerIndex, [record]);
-                            delete this._adding;
-                        }
+            var record = this.getByLayer(layer);
+            if(evt.property === "order") {
+                if(!this._adding && !this._removing) {
+                    var layerIndex = this.map.getLayerIndex(layer);
+                    if(layerIndex !== recordIndex) {
+                        this._removing = true;
+                        this.remove(record);
+                        delete this._removing;
+                        this._adding = true;
+                        this.insert(layerIndex, [record]);
+                        delete this._adding;
                     }
-                } else if(evt.property === "name") {
-                    record.set("title", layer.name);
-                } else {
-                    this.fireEvent("update", this, record, Ext.data.Record.EDIT);
                 }
+            } else {
+                record.
             }
         },
        
